@@ -1,0 +1,55 @@
+﻿@model AntoineBlog.Models.ContactMessage
+@{
+}
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+
+<main class="bcolor">
+    <!-- CONTACT -->
+    <section id="contact" class="container view-content">
+        <!-- MODULE TITLE -->
+        <div class="row">
+            <div class="col-sm-10">
+                <h2 id="contact" class="module-title">Leave me a message</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-10">
+                @* FORM *@
+                <form id="contact-form" novalidate="" action="@Url.Action("Contact", "Home", new { ReturnUrl = ViewBag.ReturnUrl })" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="sr-only" for="cname">Name</label>
+                        <input type="text" id="cname" class="form-control" name="Name" placeholder="Name" required="" data-validation-required-message="Please enter your name.">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="cemail">Your Email</label>
+                        <input type="email" id="cemail" name="Email" class="form-control" placeholder="Your E-mail" required="" data-validation-required-message="Please enter your email address.">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="cmessage" name="Message" rows="7" placeholder="Message" required="" data-validation-required-message="Please enter your message."></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" name="submit" class="btn btn-block btn-round btn-dark">Submit</button>
+                    </div>
+                </form>
+                <p>@ViewBag.result</p>
+            </div>
+        </div>
+        <!-- /MODULE TITLE -->
+    </section>
+</main>
+<!-- /CONTACT -->

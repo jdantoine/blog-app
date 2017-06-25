@@ -1,0 +1,81 @@
+﻿@using AntoineBlog.Models
+@model AntoineBlog.Models.RegisterViewModel
+@{
+}
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<main class="bcolor">
+    <div class="row container view-content">
+        @*<div class="col-md-3">
+            <h1>Register</h1>
+            <h4>Once registered, you will be able to comment on any post and reply to other comments on this and future visits.</h4>
+            @using (Html.BeginForm("LoginGuestAdmin", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-round btn-dark">Admin Demo</button>
+            }
+
+        </div>*@
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-5">
+                <div class="col-md-12">@Html.ValidationSummary("", new { @class = "text-danger" })</div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DisplayName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-round btn-dark" value="Register" />
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="col-md-3 col-md-offset-1">
+            <h4>Or, log in using one of these services:</h4>
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+
+    </div>
+
+</main>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

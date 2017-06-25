@@ -1,0 +1,38 @@
+﻿@model AntoineBlog.Models.SendCodeViewModel
+@{
+    ViewBag.Title = "Send";
+}
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<!-- /HERO -->
+<main class="bcolor">
+    <div class="container view-content">
+        <h2>@ViewBag.Title.</h2>
+        @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("rememberMe", @Model.RememberMe)
+            <h4>Send verification code</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    Select Two-Factor Authentication Provider:
+                    @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers)
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
+    </div>
+</main>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

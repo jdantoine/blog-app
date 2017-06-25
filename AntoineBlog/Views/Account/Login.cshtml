@@ -1,0 +1,83 @@
+﻿@using AntoineBlog.Models
+@model LoginViewModel
+@{
+}
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div> 
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<main class="bcolor">
+    <div class="container view-content">
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="text-right">Log in using your <b>Antoine's Blog</b> account information.</h4>
+            </div>
+            <div class="col-md-3 col-md-offset-1">
+                <h4 class="m-b-20">Or use one of the following services:</h4>
+            </div>
+        </div>
+        <div class="row">
+            <section id="loginForm" class="col-md-8">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-2">
+                            <input type="submit" value="Log in" class="btn btn-round btn-dark" />
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-round btn-dark" href="@Url.Action("Register")">
+                                Register as New User
+                                @*@Html.ActionLink("Register as a new user", "Register")*@
+                            </a>
+                        </div>
+                    </div>
+
+                    @*Enable this once you have account confirmation enabled for password reset functionality*@
+                    <p class="col-md-offset-2 col-md-10">
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>
+                }
+            </section>
+            <div class="col-md-3 col-md-offset-1">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

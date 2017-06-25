@@ -1,0 +1,92 @@
+﻿@model AntoineBlog.Models.IndexViewModel
+@{
+}
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<!-- /HERO -->
+<main class="bcolor">
+    <section class="container view-content">
+        <div class="col-md-11 col-md-offset-1">
+            <h2>Manage Account</h2>
+            <p class="text-success">@ViewBag.StatusMessage</p>
+            <h4>Change your account settings</h4>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="manage col-md-3 col-md-offset-1">
+                @if (Model.HasPassword)
+            {
+                    <button class="btn btn-dark btn-round" onclick="location.href='@Url.Action("ChangePassword")';return false;">Change your password</button>
+                }
+                else
+                {
+                    <button class="btn btn-dark btn-round" onclick="location.href='@Url.Action("SetPassword")';return false;">Set password</button>
+                }
+                <br />
+                <button class="btn btn-round btn-dark" onclick="location.href='@Url.Action("ManageLogins")';return false;">Manage External Logins: @Model.Logins.Count</button>
+            </div>
+            <div class="col-md-4 col-md-offset-1">
+                <h6>Two-Factor Authentication:</h6>
+                <p>
+                    There are no two-factor authentication providers configured. @*See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                        for details on setting up this ASP.NET application to support two-factor authentication.*@
+                </p>
+            </div>
+        </div>
+        @*
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*
+            <dt>Phone Number:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None") [
+                @if (Model.PhoneNumber != null)
+                {
+                    @Html.ActionLink("Change", "AddPhoneNumber")
+                    @: &nbsp;|&nbsp;
+                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                }
+                else
+                {
+                    @Html.ActionLink("Add", "AddPhoneNumber")
+                }
+                ]
+            </dd>
+        *@
+
+        @*@if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                    <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                    <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }*@
+    </section>
+</main>

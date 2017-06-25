@@ -1,0 +1,105 @@
+﻿@model IEnumerable<AntoineBlog.Models.Comment>
+@{
+    ViewBag.Title = "Index";
+}
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<!-- /HERO -->
+<main class="bcolor">
+    <section class="container container-fluid view-content">
+        <h2>Comments Index</h2>
+        @if (User.IsInRole("GuestAdmin"))
+        {
+            <div class="alert alert-info">
+                <h4>Welcome to the Moderator's Page</h4>
+                <p>As a guest administrator, you are allowed to access to this page and related to get an overview of how this application was built. However, you are not allowed to make any changes. The buttons and actions of the controller to delete or save edited comments have been disabled. You can also check out how the pages for the normally authenticated users look like. Have fun!</p>
+                
+            </div>
+        }
+        <div class="row header">
+            <div class="col-thin col-sm-1">
+                <p>Post</p>
+            </div>
+            <div class="col-thin col-sm-1">
+                <p>Author</p>
+            </div>
+            <div class="col-thin col-sm-1">
+                <p>@Html.DisplayNameFor(model => model.Created)</p>
+            </div>
+            <div class="col-thin col-sm-3">
+                <p>@Html.DisplayNameFor(model => model.Body)</p>
+            </div>
+            <div class="col-thin col-sm-1">
+                <p>@Html.DisplayNameFor(model => model.Modified)</p>
+            </div>
+            <div class="col-thin col-sm-1">
+                <p>By</p>
+            </div>
+            <div class="col-thin col-sm-2">
+                <p>Original</p>
+            </div>
+            <div class="col-thin col-sm-1">
+                <p>@Html.DisplayNameFor(model => model.Published)</p>
+            </div>
+            <div class="col-thin col-sm-1">
+            </div>
+        </div>
+        @foreach (var comment in Model.OrderBy(t => t.Post.Title))
+        {
+            <div class="row entries">
+                <div class="col-thin col-sm-1">
+                    <b>@comment.Post.Title</b>
+                </div>
+                <div class="col-thin col-sm-1">
+                    @Html.DisplayFor(modelItem => comment.Author.DisplayName)
+                </div>
+                <div class="col-thin col-sm-1">
+                    @comment.Created.DateTime.ToString("ddd, MM dd, yyyy: HH:mm"))
+                </div>
+                <div class="col-thin col-sm-3">
+                    @Html.Raw(comment.Body)
+                </div>
+                <div class="col-thin col-sm-1">
+                    @if (comment.Modified.HasValue)
+                    {
+                        @comment.Modified.Value.DateTime.ToString("ddd, MM dd, yyyy: HH:mm")
+                    }
+                </div>
+                <div class="col-thin col-sm-1 break">
+                    @if (comment.ModifiedBy != null)
+                    {
+                        @comment.ModifiedBy
+                    }
+                </div>
+                <div class="col-thin col-sm-2">
+                    @if (comment.Modified.HasValue)
+                    {
+                        @Html.Raw(comment.OriginalBody)
+                    }
+                </div>
+                <div class="col-thin col-sm-1">
+                    @if (comment.Published == true)
+                    {
+                        <span class="glyphicon glyphicon-ok"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-remove"></span>
+                    }
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-round btn-dark btn-admin" href="@Url.Action("Edit", new {id = comment.Id})">Edit</a><br />
+                    <a class="btn btn-round btn-dark btn-admin" href="@Url.Action("Delete", new {id = comment.Id})">Delete</a>
+                </div>
+            </div>
+        }
+    </section>
+</main>

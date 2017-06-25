@@ -1,0 +1,91 @@
+﻿@model AntoineBlog.Models.Post
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20">toward the world of software</h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<!-- /HERO -->
+<main class="bcolor">
+    <section class="container view-content">
+        <h2>Delete: <strong>@Html.Raw(Model.Title)</strong></h2>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Created)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Updated)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Updated)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Body)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Body)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MediaURL)
+            </dt>
+            <dd>
+                @Html.Raw(Model.MediaURL)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Category)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Published)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Published)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Slug)
+            </dt>
+            <dd>
+                @Html.Raw(Model.Slug)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <div class="verify-contain col-md-offset-2 col-md-10">
+                    @if (User.IsInRole("GuestAdmin"))
+                    {
+                        <button type="button" id="delete" class="btn btn-round btn-dark" disabled>Delete</button>
+                    }
+                    else
+                    {
+                        <button type="button" id="delete" class="btn btn-round btn-dark">Delete</button>
+                    }
+                    <div id="verify" class="text-danger">
+                        <p>Are you sure you want to permanently delete this post?</p>
+                        <input type="submit" value="Yes, delete" class="btn btn-dark btn-round pull-right" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        }
+    </section>
+</main>

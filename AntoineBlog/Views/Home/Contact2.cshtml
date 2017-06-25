@@ -1,0 +1,64 @@
+﻿@model AntoineBlog.Models.EmailViewModel
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1" data-background="/Images/road-blg.png">
+    <!-- HERO TEXT -->
+    <div class="hero-caption">
+        <div class="hero-text hero-t-align">
+            <h1 class="hero-title m-t-70 m-b-0 ">Antoine's Journey</h1>
+            <h3 class="hero-subtitle m-b-20"> toward software development world </h3>
+        </div>
+    </div>
+    <!-- /HERO TEXT -->
+</section>
+<main class="bcolor">
+    <div class="container view-content">
+        <div class="row">
+            <section class="col-md-8">
+                @using (Html.BeginForm("Contact2", "Home", FormMethod.Post, new { @class = "form-horizontal"}))
+                { @Html.AntiForgeryToken()
+                    <h4>Leave me a message</h4>
+                    <hr />
+                        <div class="form-group spc">
+                            <div class="col-md-2 control-label"><strong>Name</strong></div>
+                            <div class="col-md-10">
+                                <input id="FromName" name="FromName" placeholder="Name..." class="form-control input-lg requiredField" rows="5" data-error-empty="Please enter a subject" />
+                                @Html.ValidationMessageFor(m => m.FromName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group spc">
+                            <div class="col-md-2 control-label"><strong>Email</strong></div>
+                            <div class="col-md-10">
+                                <input id="FromEmail" name="FromEmail" placeholder="Email..." class="form-control input-lg requiredField" rows="5" data-error-empty="Please enter a subject" />
+                                @Html.ValidationMessageFor(m => m.FromEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group spc">
+                            <div class="col-md-2 control-label"><strong>Subject</strong></div>
+                            <div class="col-md-10">
+                                <input id="Subject" name="Subject" placeholder="Subject..." class="form-control input-lg requiredField" rows="5" data-error-empty="Please enter a subject"/>
+                                @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group spc">
+                            <div class="col-md-2 control-label"><strong>Message</strong></div>
+                            <div class="col-md-10">
+                                <textarea id="Body" name="Body" placeholder="Message..." class="form-control input-lg requiredField" rows="5" data-error-empty="Please enter your message"></textarea>
+                                @Html.ValidationMessageFor(m => m.Body, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Send Message" class="btn btn-default" />
+                            </div>
+                        </div>
+                   
+                }
+            </section>
+        </div>
+    </div>
+</main>
